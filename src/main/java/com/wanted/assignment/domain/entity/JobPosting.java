@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name="job-postings")
 public class JobPosting {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @Column(name = "position")
     private String position;
