@@ -9,4 +9,6 @@ public interface JobPostingService {
     JobPosting create(JobPostingCreateReq req) throws Exception;
     @Transactional
     void update(Long id, JobPostingUpdateReq req) throws Exception;
+    @Transactional
+    void delete(Long id) throws Exception;
 }
