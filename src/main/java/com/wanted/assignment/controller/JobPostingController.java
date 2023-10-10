@@ -1,5 +1,7 @@
 package com.wanted.assignment.controller;
 
+import com.wanted.assignment.common.ApiResponse;
+import com.wanted.assignment.common.ApiUtils;
 import com.wanted.assignment.controller.reqeust.JobPostingCreateReq;
 import com.wanted.assignment.domain.entity.JobPosting;
 import com.wanted.assignment.service.JobPostingService;
@@ -20,9 +22,10 @@ public class JobPostingController {
     private final JobPostingService jobPostingService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<JobPosting> create(@RequestBody JobPostingCreateReq req) throws Exception {
+    public ApiResponse<JobPosting> create(@RequestBody JobPostingCreateReq req) throws Exception {
         if (req.getReward() < 0) {
+            throw new IllegalArgumentException("reward는 1이상의 숫자여야합니다.");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(jobPostingService.createJobPosting(req));
+        return ApiUtils.createSuccessWithDataResponse(jobPostingService.createJobPosting(req));
     }
 }
