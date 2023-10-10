@@ -59,4 +59,5 @@
     - JobPostingController에 `/posting`으로 요청이 올 경우 처리하도록 구현
 2. ExceptionHandler, custom ResponseEntity 구현
 3. 채용 공고 수정 기능 구현
-	- JPA의 dirty checking을 이용한 업데이트 구현
+    - JPA의 dirty checking을 이용한 업데이트 구현
+4. 채용 공고 삭제 기능 구현

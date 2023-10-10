@@ -47,4 +47,11 @@ public class JobPostingServiceImpl implements JobPostingService {
         posting.setReward(req.getReward());
         posting.setSkillSet(req.getSkillSet());
     }
+
+    @Override
+    public void delete(Long id) throws Exception {
+        JobPosting posting = jobPostingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 채용공고입니다."));
+        jobPostingRepository.delete(posting);
+    }
 }

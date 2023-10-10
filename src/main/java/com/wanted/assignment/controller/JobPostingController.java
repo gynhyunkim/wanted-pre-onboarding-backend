@@ -33,4 +33,10 @@ public class JobPostingController {
         jobPostingService.update(postId, req);
         return ApiUtils.successCreateWithEmptyResponse();
     }
+
+    @DeleteMapping("/{postId}")
+    public ApiResponse<Void> delete(@PathVariable Long postId) throws Exception {
+        jobPostingService.delete(postId);
+        return ApiUtils.successCreateWithEmptyResponse();
+    }
 }
