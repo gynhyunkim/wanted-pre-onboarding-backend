@@ -6,18 +6,12 @@
 - MySQL
 ### 구현 내용
 
-- [ ] 채용공고 등록
-
+- [x] 채용공고 등록
 - [ ] 채용공고 수정
-
 - [ ] 채용공고 삭제
-
 - [ ] 채용공고 목록 조회
-
 - [ ] 채용공고 검색
-
 - [ ] 채용 상세 페이지 조회
-
 - [ ] 사용자의 채용공고 지원
 
 ### 테이블 설계
@@ -27,12 +21,12 @@
 ### API 명세
 |name|http method|uri|request body|response body|
 |---|---|---|---|---|
-|채용공고 등록|post|/jobposting/create|{"company_id":company_id, "position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}|{200, ok}|
-|채용공고 수정|put|/jobposting/{postId}|{"position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}||
-|채용공고 삭제|delete|/jobposting/{postId}/delete|None||
-|채용공고 목록 조회|get|/jobposting/all|None|[{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set}, {}...]||
-|채용 상세 페이지|get|/jobposting/{postId}|None|{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set, "description":description}||
- 
+|채용공고 등록|post|/posting/create|{"company_id":company_id, "position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}|{200, ok}|
+|채용공고 수정|put|/posting/{postId}|{"position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}||
+|채용공고 삭제|delete|/posting/{postId}/delete|None||
+|채용공고 목록 조회|get|/posting/all|None|[{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set}, {}...]||
+|채용 상세 페이지|get|/posting/{postId}|None|{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set, "description":description}||
+
 
 ### 구현할 기능 세분화
 1.채용공고 등록
@@ -58,5 +52,10 @@
 	- postId는 유효한 값이어야 한다.
 
 ### 구현 과정
-- Company, User, JobPosting Entity 생성
-- JobPostingRepository 생성 및 테스트 코드 작성
+1. 채용 공고 등록 기능 구현
+	- Company, JobPosting, User entity 구현
+	- JobPostingRepository, CompanyRepository 생성
+	- JobPostingService에서 JobPosting table에 값을 추가하는 메서드 구현
+	- JobPostingController에 `/posting`으로 요청이 올 경우 처리하도록 구현
+2. ExceptionHandler, custom ResponseEntity 구현
+
