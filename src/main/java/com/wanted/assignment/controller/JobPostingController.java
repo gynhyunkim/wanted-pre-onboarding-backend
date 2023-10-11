@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -38,5 +41,10 @@ public class JobPostingController {
     public ApiResponse<Void> delete(@PathVariable Long postId) throws Exception {
         jobPostingService.delete(postId);
         return ApiUtils.successCreateWithEmptyResponse();
+    }
+
+    @GetMapping("/{postId}")
+    public ApiResponse<List<JobPosting>> getPostings(@PathVariable Long postId) throws Exception {
+        return ApiUtils.createSuccessWithDataResponse(new LinkedList<JobPosting>());
     }
 }
