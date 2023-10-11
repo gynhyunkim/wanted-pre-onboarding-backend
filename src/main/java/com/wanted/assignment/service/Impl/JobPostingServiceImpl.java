@@ -11,10 +11,9 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -53,5 +52,11 @@ public class JobPostingServiceImpl implements JobPostingService {
         JobPosting posting = jobPostingRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 채용공고입니다."));
         jobPostingRepository.delete(posting);
+    }
+
+    @Override
+    public List<JobPosting> getAllPostings() throws Exception {
+        List<JobPosting> postings = jobPostingRepository.findAll();
+        return null;
     }
 }
