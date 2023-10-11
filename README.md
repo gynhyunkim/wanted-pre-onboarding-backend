@@ -8,13 +8,8 @@
 
 - [x] 채용공고 등록
 - [x] 채용공고 수정
-<<<<<<< Updated upstream
-- [ ] 채용공고 삭제
-- [ ] 채용공고 목록 조회
-=======
 - [x] 채용공고 삭제
 - [x] 채용공고 목록 조회
->>>>>>> Stashed changes
 - [ ] 채용공고 검색
 - [ ] 채용 상세 페이지 조회
 - [ ] 사용자의 채용공고 지원
@@ -65,11 +60,7 @@
 2. ExceptionHandler, custom ResponseEntity 구현
 3. 채용 공고 수정 기능 구현
     - JPA의 dirty checking을 이용한 업데이트 구현
-<<<<<<< Updated upstream
-4. 채용 공고 삭제 기능 구현
-=======
 4. 채용 공고 삭제 기능 구현
 5. 채용 공고 목록 조회
    - 30개 단위로 pagenation해서 반환
 6. Dto와 Entity 분리
->>>>>>> Stashed changes
