@@ -1,12 +1,20 @@
 package com.wanted.assignment.common;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Value;
 
-@AllArgsConstructor
 @Getter
+@Builder
 public class BasicResponse<T> {
+    private int code;
     private boolean success;
-    private T response;
-//    private ErrorEntity error;
+    private T data;
+    private ApiError error;
+
+    @Value
+    public static class ApiError {
+        private String code;
+        private String message;
+    }
 }

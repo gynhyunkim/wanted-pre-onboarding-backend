@@ -1,6 +1,6 @@
 package com.wanted.assignment.controller;
 
-import com.wanted.assignment.common.ApiResponse;
+import com.wanted.assignment.common.BasicResponse;
 import com.wanted.assignment.common.ApiUtils;
 import com.wanted.assignment.controller.reqeust.ApplyReq;
 import com.wanted.assignment.controller.reqeust.JobPostingCreateReq;
@@ -26,36 +26,36 @@ import java.util.stream.Collectors;
 public class JobPostingController {
     private final JobPostingService jobPostingService;
     @PostMapping(value = "/create")
-    public ApiResponse<Long> create(@Validated @RequestBody JobPostingCreateReq req) throws Exception {
+    public BasicResponse<Long> create(@Validated @RequestBody JobPostingCreateReq req) throws Exception {
         JobPosting result = jobPostingService.create(req);
-        return ApiUtils.createSuccessWithDataResponse(result.getId());
+        return ApiUtils.successWithDataResponse(result.getId());
     }
 
     @PutMapping("/{postId}")
-    public ApiResponse<Void> update(@PathVariable Long postId, @Validated @RequestBody JobPostingUpdateReq req) throws Exception {
+    public BasicResponse<Void> update(@PathVariable Long postId, @Validated @RequestBody JobPostingUpdateReq req) throws Exception {
         jobPostingService.update(postId, req);
-        return ApiUtils.successCreateWithEmptyResponse();
+        return ApiUtils.successWithEmptyResponse();
     }
 
     @DeleteMapping("/{postId}")
-    public ApiResponse<Void> delete(@PathVariable Long postId) throws Exception {
+    public BasicResponse<Void> delete(@PathVariable Long postId) throws Exception {
         jobPostingService.delete(postId);
-        return ApiUtils.successCreateWithEmptyResponse();
+        return ApiUtils.successWithEmptyResponse();
     }
 
     @GetMapping("")
-    public ApiResponse<List<JobPostingsRes>> getPostings(@RequestParam int pageNo) throws Exception {
+    public BasicResponse<List<JobPostingsRes>> getPostings(@RequestParam int pageNo) throws Exception {
         List<JobPosting> result =  jobPostingService.getAllPostings(pageNo);
         return getListApiResponse(result);
     }
 
     @GetMapping("/search")
-    public ApiResponse<List<JobPostingsRes>> searchPosting(@RequestParam int pageNo, @RequestParam String keyword) throws Exception {
+    public BasicResponse<List<JobPostingsRes>> searchPosting(@RequestParam int pageNo, @RequestParam String keyword) throws Exception {
         List<JobPosting> result =  jobPostingService.searchPosting(keyword, pageNo);
         return getListApiResponse(result);
     }
 
-    private ApiResponse<List<JobPostingsRes>> getListApiResponse(List<JobPosting> result) {
+    private BasicResponse<List<JobPostingsRes>> getListApiResponse(List<JobPosting> result) {
         List<JobPostingsRes> postings = new LinkedList<>();
 
         for (JobPosting posting : result) {
@@ -70,14 +70,14 @@ public class JobPostingController {
                     .region(company.getRegion())
                     .build());
         }
-        return ApiUtils.createSuccessWithDataResponse(postings);
+        return ApiUtils.successWithDataResponse(postings);
     }
 
     @GetMapping("/{postId}")
-    public ApiResponse<JobPostingDetailRes> getPostingDetail(@PathVariable Long postId) throws Exception {
+    public BasicResponse<JobPostingDetailRes> getPostingDetail(@PathVariable Long postId) throws Exception {
         JobPosting result = jobPostingService.getDetails(postId);
         Company company = result.getCompany();
-        return ApiUtils.createSuccessWithDataResponse(JobPostingDetailRes.builder()
+        return ApiUtils.successWithDataResponse(JobPostingDetailRes.builder()
                         .id(postId)
                         .reward(result.getReward())
                         .skillSet(result.getSkillSet())
@@ -91,7 +91,7 @@ public class JobPostingController {
     }
 
     @PostMapping("/apply")
-    public ApiResponse<Long> apply(@Validated @RequestBody ApplyReq req) throws Exception {
-        return ApiUtils.createSuccessWithDataResponse(jobPostingService.apply(req));
+    public BasicResponse<Long> apply(@Validated @RequestBody ApplyReq req) throws Exception {
+        return ApiUtils.successWithDataResponse(jobPostingService.apply(req));
     }
 }
