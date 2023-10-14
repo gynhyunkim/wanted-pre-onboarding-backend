@@ -11,8 +11,8 @@
 - [x] 채용공고 삭제
 - [x] 채용공고 목록 조회
 - [x] 채용공고 검색
-- [ ] 채용 상세 페이지 조회
-- [ ] 사용자의 채용공고 지원
+- [x] 채용 상세 페이지 조회
+- [x] 사용자의 채용공고 지원
 
 ### 테이블 설계
 
@@ -59,15 +59,18 @@
     - JobPostingService에서 JobPosting table에 값을 추가하는 메서드 구현
     - JobPostingController에 `/posting`으로 요청이 올 경우 처리하도록 구현
 2. ExceptionHandler, custom ResponseEntity 구현
+   - service에서 Exception 발생 시 적절하게 처리하여 Response를 반환하도록 구현
 3. 채용 공고 수정 기능 구현
     - JPA의 dirty checking을 이용한 업데이트 구현
 4. 채용 공고 삭제 기능 구현
 5. 채용 공고 목록 조회
-   - 30개 단위로 pagenation해서 반환
+   - 30개 단위로 페이지네이션
 6. Dto와 Entity 분리
+   - 각 기능별로 필요한 정보만 담아서 전달할 수 있도록 Dto 구현
 7. 채용 공고 검색
-   - keyword가 회사명, 포지션, 기술스택에 포함된 경우 조회
+   - JPA specification을 이용해서 parameter로 전달되는 keyword가 회사명, 포지션, 기술스택에 포함된 경우 조회
+   - 30개 단위로 페이지네이션
 8. 채용 공고 상세 조회
-   - 해당 공고 회사의 다른 채용공고 리스트의 id도 같이 조회
-9. 채용 공고에 지원하기
+   - 해당 공고를 작성한 회사의 다른 채용공고 리스트의 id도 같이 조회
+9. 채용 공고에 지원하기 
    - 사용자 별로 한 채용공고에 한번만 지원할 수 있도록 구현
