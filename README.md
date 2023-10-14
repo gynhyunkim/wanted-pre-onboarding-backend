@@ -19,14 +19,14 @@
 ![erd](./resources/wanted_erd.PNG)
 
 ### API 명세
-|name|http method|uri|request body|response body|
-|---|---|---|---|---|
-|채용공고 등록|post|/posting/create|{"company_id":company_id, "position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}|{200, ok}|
-|채용공고 수정|put|/posting/{postId}|{"position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}||
-|채용공고 삭제|delete|/posting/{postId}/delete|None||
-|채용공고 목록 조회|get|/posting|None|[{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set}, {}...]||
- |채용공고 검색 |get|/posting/search|pageNo, keyword ||
-|채용 상세 페이지|get|/posting/{postId}|None|{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set, "description":description}||
+| name       |http method| path                  | param           | request body                                                                                                   | response body                                                                                                                                                                                         |
+|------------|---|-----------------------|-----------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 채용공고 등록    |post| /posting/create       | None            | {"company_id": 0,"position": "string","reward": 0,"description": "string","skill_set": "string"} | 생성된 postId                                                                                                                                                                                            |
+| 채용공고 수정    |put| /posting/{postId}     | postId          | {"position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}                      | 수정 성공 여부                                                                                                                                                                                              |
+| 채용공고 삭제    |delete| /posting/{postId} | postId          | None    | 삭제 성공 여부                                                                                                                                                                                              |
+| 채용공고 목록 조회 |get| /posting              | None            | None      | [{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set}, {}...]                                         |
+ | 채용공고 검색    |get| /posting/search       | pageNo, keyword | None | [{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set}, {}]                                            |
+| 채용 상세 페이지  |get| /posting/{postId}     | postId| None   | {"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set, "description":description, "another_posting":[]} ||
 
 
 ### 구현할 기능 세분화
@@ -69,3 +69,5 @@
    - keyword가 회사명, 포지션, 기술스택에 포함된 경우 조회
 8. 채용 공고 상세 조회
    - 해당 공고 회사의 다른 채용공고 리스트의 id도 같이 조회
+9. 채용 공고에 지원하기
+   - 사용자 별로 한 채용공고에 한번만 지원할 수 있도록 구현
