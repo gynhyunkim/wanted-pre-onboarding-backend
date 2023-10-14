@@ -12,4 +12,8 @@ public class JobPostingDto {
     private String skillSet;
     private String description;
     private CompanyDto company;
+    private String companyName;
+    private String country;
+    private String region;
 }
+
