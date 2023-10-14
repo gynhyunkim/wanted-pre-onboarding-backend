@@ -1,5 +1,6 @@
 package com.wanted.assignment.service;
 
+import com.wanted.assignment.controller.reqeust.ApplyReq;
 import com.wanted.assignment.controller.reqeust.JobPostingCreateReq;
 import com.wanted.assignment.controller.reqeust.JobPostingUpdateReq;
 import com.wanted.assignment.domain.entity.JobPosting;
@@ -16,4 +17,5 @@ public interface JobPostingService {
     List<JobPosting> getAllPostings(int pageNo) throws Exception;
     List<JobPosting> searchPosting(String keyword, int pageNo) throws Exception;
     JobPosting getDetails(Long id) throws Exception;
+    Long apply(ApplyReq req) throws Exception;
 }

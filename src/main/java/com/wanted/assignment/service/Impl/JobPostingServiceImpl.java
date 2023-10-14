@@ -1,11 +1,16 @@
 package com.wanted.assignment.service.Impl;
 
+import com.wanted.assignment.controller.reqeust.ApplyReq;
 import com.wanted.assignment.controller.reqeust.JobPostingCreateReq;
 import com.wanted.assignment.controller.reqeust.JobPostingUpdateReq;
+import com.wanted.assignment.domain.entity.ApplicationHistory;
 import com.wanted.assignment.domain.entity.Company;
 import com.wanted.assignment.domain.entity.JobPosting;
+import com.wanted.assignment.domain.entity.User;
+import com.wanted.assignment.repository.ApplicationHistoryRepository;
 import com.wanted.assignment.repository.CompanyRepository;
 import com.wanted.assignment.repository.JobPostingRepository;
+import com.wanted.assignment.repository.UserRepository;
 import com.wanted.assignment.service.JobPostingService;
 import com.wanted.assignment.service.JobPostingSpecification;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,6 +33,8 @@ public class JobPostingServiceImpl implements JobPostingService {
 
     private final JobPostingRepository jobPostingRepository;
     private final CompanyRepository companyRepository;
+    private final UserRepository userRepository;
+    private final ApplicationHistoryRepository applicationHistoryRepository;
     private final Integer PAGE_SIZE = 30;
 
     @Override
@@ -85,5 +92,22 @@ public class JobPostingServiceImpl implements JobPostingService {
         JobPosting jobPosting = jobPostingRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 채용공고입니다."));
         return jobPosting;
+    }
+
+    @Override
+    @Transactional
+    public Long apply(ApplyReq req) throws Exception {
+        JobPosting jobPosting = jobPostingRepository.findById(req.getPostId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 채용공고입니다."));
+        User user = userRepository.findById(req.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        List<ApplicationHistory> applicationHistory = applicationHistoryRepository.findByUserAndPosting(user, jobPosting);
+        if (!applicationHistory.isEmpty()) {
+            throw new IllegalStateException("한 공고에는 한 번만 지원할 수 있습니다.");
+        }
+        return applicationHistoryRepository.save(ApplicationHistory.builder()
+                .posting(jobPosting)
+                .user(user)
+                .build()).getId();
     }
 }
