@@ -14,4 +14,5 @@ public interface JobPostingService {
     @Transactional
     void delete(Long id) throws Exception;
     List<JobPosting> getAllPostings(int pageNo) throws Exception;
+    List<JobPosting> searchPosting(String keyword, int pageNo) throws Exception;
 }

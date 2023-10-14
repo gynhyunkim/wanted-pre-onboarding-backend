@@ -7,6 +7,7 @@ import com.wanted.assignment.domain.entity.JobPosting;
 import com.wanted.assignment.repository.CompanyRepository;
 import com.wanted.assignment.repository.JobPostingRepository;
 import com.wanted.assignment.service.JobPostingService;
+import com.wanted.assignment.service.JobPostingSpecification;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -62,6 +65,18 @@ public class JobPostingServiceImpl implements JobPostingService {
     public List<JobPosting> getAllPostings(int pageNo) throws Exception {
         Pageable pageable = PageRequest.of(pageNo, PAGE_SIZE);
         Page<JobPosting> postings = jobPostingRepository.findAll(pageable);
+        return postings.getContent();
+    }
+
+    @Override
+    public List<JobPosting> searchPosting(String keyword, int pageNo) throws Exception {
+        Pageable pageable = PageRequest.of(pageNo, PAGE_SIZE);
+        Map<String, String> keys = new HashMap<>();
+        keys.put("name", keyword);
+        keys.put("position", keyword);
+        keys.put("skillSet", keyword);
+        Page<JobPosting> postings = jobPostingRepository.findAll(JobPostingSpecification.searchPosting(keys),
+                pageable);
         return postings.getContent();
     }
 }

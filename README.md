@@ -10,7 +10,7 @@
 - [x] 채용공고 수정
 - [x] 채용공고 삭제
 - [x] 채용공고 목록 조회
-- [ ] 채용공고 검색
+- [x] 채용공고 검색
 - [ ] 채용 상세 페이지 조회
 - [ ] 사용자의 채용공고 지원
 
@@ -24,7 +24,8 @@
 |채용공고 등록|post|/posting/create|{"company_id":company_id, "position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}|{200, ok}|
 |채용공고 수정|put|/posting/{postId}|{"position":"backend developer", "reward":10000, "description":"~", "skill_set":"Python"}||
 |채용공고 삭제|delete|/posting/{postId}/delete|None||
-|채용공고 목록 조회|get|/posting/all|None|[{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set}, {}...]||
+|채용공고 목록 조회|get|/posting|None|[{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set}, {}...]||
+ |채용공고 검색 |get|/posting/search|pageNo, keyword ||
 |채용 상세 페이지|get|/posting/{postId}|None|{"post_id":post_id, "company_name":company_name, "country":country, "region":region, "position": position, "reward": reward, "skill_set": skill_set, "description":description}||
 
 
@@ -64,3 +65,5 @@
 5. 채용 공고 목록 조회
    - 30개 단위로 pagenation해서 반환
 6. Dto와 Entity 분리
+7. 채용 공고 검색
+   - keyword가 회사명, 포지션, 기술스택에 포함된 경우 조회

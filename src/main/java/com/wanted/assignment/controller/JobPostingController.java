@@ -54,4 +54,15 @@ public class JobPostingController {
         }
         return ApiUtils.createSuccessWithDataResponse(postings);
     }
+
+    @GetMapping("/search")
+    public ApiResponse<List<JobPostingDto>> getPostings(@RequestParam int pageNo, @RequestParam String keyword) throws Exception {
+        List<JobPosting> result =  jobPostingService.searchPosting(keyword, pageNo);
+        List<JobPostingDto> postings = new LinkedList<>();
+        for (JobPosting posting : result) {
+            postings.add(jobPostingMapper.entityToDto(posting,
+                    companyMapper.entityToDto(posting.getCompany())));
+        }
+        return ApiUtils.createSuccessWithDataResponse(postings);
+    }
 }
