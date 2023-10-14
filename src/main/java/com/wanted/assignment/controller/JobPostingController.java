@@ -2,6 +2,7 @@ package com.wanted.assignment.controller;
 
 import com.wanted.assignment.common.ApiResponse;
 import com.wanted.assignment.common.ApiUtils;
+import com.wanted.assignment.controller.reqeust.ApplyReq;
 import com.wanted.assignment.controller.reqeust.JobPostingCreateReq;
 import com.wanted.assignment.controller.reqeust.JobPostingUpdateReq;
 import com.wanted.assignment.domain.dto.JobPostingDetailRes;
@@ -87,5 +88,10 @@ public class JobPostingController {
                         .region(company.getRegion())
                         .anotherPosting(company.getJobPostings().stream().map(JobPosting::getId).collect(Collectors.toList()))
                 .build());
+    }
+
+    @PostMapping("/apply")
+    public ApiResponse<Long> apply(@Validated @RequestBody ApplyReq req) throws Exception {
+        return ApiUtils.createSuccessWithDataResponse(jobPostingService.apply(req));
     }
 }
