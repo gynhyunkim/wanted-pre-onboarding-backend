@@ -79,4 +79,11 @@ public class JobPostingServiceImpl implements JobPostingService {
                 pageable);
         return postings.getContent();
     }
+
+    @Override
+    public JobPosting getDetails(Long id) throws Exception {
+        JobPosting jobPosting = jobPostingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 채용공고입니다."));
+        return jobPosting;
+    }
 }
