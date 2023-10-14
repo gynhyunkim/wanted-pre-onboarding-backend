@@ -1,4 +1,4 @@
-package com.wanted.assignment.domain.dto;
+package com.wanted.assignment.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Table(name="users")
-public class UserDto {
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;

@@ -1,7 +1,7 @@
 package com.wanted.assignment.repository;
 
-import com.wanted.assignment.domain.dto.CompanyDto;
+import com.wanted.assignment.domain.entity.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CompanyRepository extends JpaRepository<CompanyDto, Long> {
+public interface CompanyRepository extends JpaRepository<Company, Long> {
 }

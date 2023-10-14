@@ -1,4 +1,4 @@
-package com.wanted.assignment.domain.dto;
+package com.wanted.assignment.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Table(name="job-postings")
-public class JobPostingDto {
+public class JobPosting {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
@@ -24,5 +24,5 @@ public class JobPostingDto {
     private String description;
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private CompanyDto companyDto;
+    private Company company;
 }
